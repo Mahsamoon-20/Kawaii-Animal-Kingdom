@@ -61,8 +61,21 @@ letter-spacing: 3px; text-transform: uppercase;
 padding: 5px 18px; border-radius: 999px; margin-bottom: 18px;
 }
 .hero-animals {
-font-size: 2.5rem; letter-spacing: 6px; margin-bottom: 16px; display: block;
+font-size: 2.5rem; letter-spacing: 4px;
+margin-bottom: 20px; display: flex;
+justify-content: center; gap: 12px;
 }
+.hero-animals span { display: inline-block; }
+.a1 { animation: bob1 2.0s ease-in-out infinite; }
+.a2 { animation: bob2 2.3s ease-in-out infinite; animation-delay: 0.2s; }
+.a3 { animation: bob3 1.8s ease-in-out infinite; animation-delay: 0.4s; }
+.a4 { animation: bob4 2.5s ease-in-out infinite; animation-delay: 0.1s; }
+.a5 { animation: bob5 2.1s ease-in-out infinite; animation-delay: 0.3s; }
+@keyframes bob1 { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-12px) rotate(-8deg)} }
+@keyframes bob2 { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-10px) rotate(8deg)} }
+@keyframes bob3 { 0%,100%{transform:translateY(0)} 40%{transform:translateY(-14px) rotate(-6deg)} 80%{transform:translateY(-4px) rotate(6deg)} }
+@keyframes bob4 { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-10px) scale(1.15)} }
+@keyframes bob5 { 0%,100%{transform:translateY(0) rotate(0deg)} 33%{transform:translateY(-8px) rotate(10deg)} 66%{transform:translateY(-12px) rotate(-10deg)} }
 .hero-title {
 font-family: ‘Baloo 2’, cursive; font-weight: 800;
 font-size: clamp(2.4rem, 9vw, 4rem); line-height: 1.05; margin-bottom: 14px;
@@ -170,6 +183,19 @@ background: white; border-radius: 16px; padding: 16px 18px;
 display: flex; align-items: center; gap: 14px;
 border: 1.5px solid rgba(209,111,160,0.15);
 box-shadow: 0 2px 12px rgba(209,111,160,0.06);
+transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+cursor: default;
+}
+.feat-row:hover {
+transform: translateY(-3px);
+box-shadow: 0 10px 28px rgba(209,111,160,0.18);
+border-color: rgba(249,168,201,0.6);
+}
+.feat-row:hover .feat-text h3 {
+color: #D06FA0;
+}
+.feat-text h3 {
+transition: color 0.2s ease;
 }
 .feat-icon { font-size: 1.6rem; flex-shrink: 0; }
 .feat-text h3 {
@@ -242,7 +268,13 @@ border-radius: 2px; opacity: 0.4;
 <div class="hero" id="hero">
   <div>
     <div class="hero-badge">✦ KAWAII COLORING BOOKS FOR KIDS ✦</div>
-    <span class="hero-animals">🐳 🦁 🐧 🦒 🐙</span>
+    <div class="hero-animals">
+  <span class="a1">🐳</span>
+  <span class="a2">🦁</span>
+  <span class="a3">🐧</span>
+  <span class="a4">🦒</span>
+  <span class="a5">🐙</span>
+</div>
     <h1 class="hero-title">Kawaii Animal<br>Kingdom</h1>
     <p class="hero-sub">Adorable kawaii illustrations, amazing animal fun facts, and special certificates — all in one magical coloring book series!</p>
     <a href="#books" class="hero-btn">🛒 Get the Books</a>

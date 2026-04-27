@@ -104,7 +104,7 @@ h1{
 .scroll-hint span{font-size:1.2rem;animation:bob 1.5s ease-in-out infinite}
 
 /* SECTIONS */
-.section{position:relative;z-index:1;padding:90px 24px;}
+.section{position:relative;z-index:1;padding:90px 24px;overflow:hidden;}
 .section.white{background:rgba(255,255,255,0.65);backdrop-filter:blur(8px)}
 .container{max-width:960px;margin:0 auto}
 .sec-eyebrow{text-align:center;font-family:'Baloo 2',cursive;font-weight:700;font-size:0.68rem;letter-spacing:4px;text-transform:uppercase;color:#D06FA0;margin-bottom:8px;}
@@ -192,8 +192,8 @@ h1{
 .coming-animals{font-size:1.6rem;letter-spacing:8px;opacity:0.6;}
 
 /* WHY GRID */
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-.why-card{background:rgba(255,255,255,0.8);border-radius:22px;padding:28px 20px;text-align:center;border:1.5px solid rgba(209,111,160,0.15);box-shadow:0 4px 18px rgba(209,111,160,0.06);transition:transform 0.2s,box-shadow 0.2s;}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:18px;overflow:hidden;}
+.why-card{background:rgba(255,255,255,0.8);border-radius:22px;padding:28px 20px;text-align:center;border:1.5px solid rgba(209,111,160,0.15);box-shadow:0 4px 18px rgba(209,111,160,0.06);transition:transform 0.2s,box-shadow 0.2s;overflow:hidden;}
 .why-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(155,111,212,0.12)}
 .why-icon{font-size:2.2rem;display:block;margin-bottom:12px}
 .why-card h3{font-family:'Baloo 2',cursive;font-weight:800;font-size:0.95rem;color:#3D2B52;margin-bottom:6px;}

@@ -358,10 +358,10 @@ animation:giraffePop 0.18s cubic-bezier(0.34,1.56,0.64,1) forwards;
         <div id="q-emoji" style="font-size:4rem;margin-bottom:10px"></div>
         <p id="q-name" style="font-family:'Baloo 2',cursive;font-weight:800;font-size:1.4rem;background:linear-gradient(135deg,#D06FA0,#9B6FD4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px"></p>
         <p id="q-desc" style="font-size:0.88rem;color:#9070B8;font-weight:600;line-height:1.6;margin-bottom:16px"></p>
-        <div style="background:#FFF0F8;border:1.5px dashed rgba(209,111,160,0.4);border-radius:16px;padding:14px;margin-bottom:16px">
-          <p style="font-size:0.72rem;font-weight:800;color:#D06FA0;margin-bottom:4px">📚 Your perfect book:</p>
+        <a id="q-book-link" href="#" target="_blank" style="display:block;background:#FFF0F8;border:1.5px dashed rgba(209,111,160,0.4);border-radius:16px;padding:14px;margin-bottom:16px;text-decoration:none;transition:border-color 0.2s,background 0.2s;" onmouseover="this.style.background='#FFE4F2';this.style.borderStyle='solid'" onmouseout="this.style.background='#FFF0F8';this.style.borderStyle='dashed'">
+          <p style="font-size:0.72rem;font-weight:800;color:#D06FA0;margin-bottom:4px">📚 Your perfect book — tap to get it! 👇</p>
           <p id="q-book" style="font-family:'Baloo 2',cursive;font-weight:800;font-size:0.95rem;color:#3D2B52"></p>
-        </div>
+        </a>
         <a id="q-link" href="#" target="_blank" class="modal-primary-btn" style="display:block;text-align:center">🛒 Get it on Amazon</a>
         <button onclick="resetQuiz()" style="background:none;border:1.5px solid rgba(209,111,160,0.3);border-radius:999px;padding:8px 18px;font-family:'Baloo 2',cursive;font-weight:700;font-size:0.8rem;color:#C478B5;cursor:pointer;margin-top:8px">🔄 Try Again</button>
       </div>
@@ -730,12 +730,15 @@ function showQuizResult() {
   document.getElementById('q-desc').textContent = r.d;
   document.getElementById('q-book').textContent = r.book;
   var link = document.getElementById('q-link');
+  var bookLink = document.getElementById('q-book-link');
   if (r.url === '#coming') {
     link.textContent = '🌟 Coming Soon — stay tuned!';
     link.href = '#coming';
+    bookLink.href = '#coming';
   } else {
     link.textContent = '🛒 Get it on Amazon';
     link.href = r.url;
+    bookLink.href = r.url;
   }
   document.getElementById('qs3').classList.remove('active');
   document.getElementById('qresult').classList.add('active');

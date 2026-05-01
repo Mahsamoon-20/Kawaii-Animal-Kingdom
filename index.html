@@ -499,9 +499,9 @@ body{scrollbar-width:none;-ms-overflow-style:none}
       <div id="peek-slider" style="display:flex;transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);width:100%;"></div>
     </div>
     <p id="peek-caption" style="font-size:0.68rem;color:#B090C8;font-weight:700;margin:4px 0 3px;min-height:14px;font-family:'Baloo 2',cursive;padding:0 14px;"></p>
-    <div style="display:flex;gap:6px;justify-content:center;margin-bottom:6px;padding:0 14px;">
-      <button onclick="peekPrev()" style="background:#FFF0F8;border:1.5px solid rgba(249,168,201,0.5);border-radius:999px;padding:6px 14px;font-family:'Baloo 2',cursive;font-weight:800;font-size:0.78rem;color:#D06FA0;cursor:pointer;">← Prev</button>
-      <button onclick="peekNext()" style="background:linear-gradient(135deg,#F9A8C9,#9B6FD4);border:none;border-radius:999px;padding:6px 14px;font-family:'Baloo 2',cursive;font-weight:800;font-size:0.78rem;color:white;cursor:pointer;">Next →</button>
+    <div id="peek-nav" style="display:flex;gap:6px;justify-content:center;margin-bottom:6px;padding:0 14px;">
+      <button id="peek-prev-btn" onclick="peekPrev()" style="background:#FFF0F8;border:1.5px solid rgba(249,168,201,0.5);border-radius:999px;padding:6px 14px;font-family:'Baloo 2',cursive;font-weight:800;font-size:0.78rem;color:#D06FA0;cursor:pointer;">← Prev</button>
+      <a id="peek-next-btn" onclick="peekNext()" style="background:linear-gradient(135deg,#F9A8C9,#9B6FD4);border:none;border-radius:999px;padding:6px 14px;font-family:'Baloo 2',cursive;font-weight:800;font-size:0.78rem;color:white;cursor:pointer;text-decoration:none;display:inline-block;">Next →</a>
     </div>
 
 ```
@@ -696,6 +696,27 @@ function renderPeekState() {
   document.getElementById('peek-caption').textContent = capSlide.locked ? '' : capSlide.caption;
   var cta = document.getElementById('peek-cta');
   if (cta) cta.style.display = (idx === total - 1 && total > 1) ? 'block' : 'none';
+
+  // Hide Prev on first slide
+  var prevBtn = document.getElementById('peek-prev-btn');
+  if (prevBtn) prevBtn.style.visibility = (idx === 0) ? 'hidden' : 'visible';
+
+  // Change Next to Amazon link on locked slide
+  var nextBtn = document.getElementById('peek-next-btn');
+  if (nextBtn) {
+    var isLocked = book.slides[idx] && book.slides[idx].locked;
+    if (isLocked) {
+      nextBtn.textContent = '🛒 Get it on Amazon';
+      nextBtn.href = window._peekAmazonUrl || '#';
+      nextBtn.target = '_blank';
+      nextBtn.onclick = null;
+    } else {
+      nextBtn.textContent = 'Next →';
+      nextBtn.removeAttribute('href');
+      nextBtn.removeAttribute('target');
+      nextBtn.onclick = peekNext;
+    }
+  }
 
 }
 

@@ -89,10 +89,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(255,240,248,
 .quiz-section{padding:70px 24px;background:linear-gradient(160deg,#EDE0FF 0%,#FFE8F4 100%);overflow:hidden}
 .quiz-card{max-width:500px;margin:0 auto;background:rgba(255,255,255,0.85);border-radius:28px;padding:36px 28px;box-shadow:0 12px 40px rgba(155,111,212,0.15);border:2px solid rgba(249,168,201,0.3)}
 .quiz-step{display:none}
+.quiz-step.active .quiz-prog-dot{display:block}
+.quiz-step.active .quiz-prog-dot.done{display:block}
 .quiz-step.active{display:block}
 .quiz-progress{display:flex;gap:6px;justify-content:center;margin-bottom:24px}
-.quiz-prog-dot{height:6px;width:50px;border-radius:3px;background:rgba(209,111,160,0.2);transition:background 0.3s}
-.quiz-prog-dot.done{background:linear-gradient(90deg,#F9A8C9,#9B6FD4)}
+.quiz-prog-dot{height:6px;width:50px;border-radius:3px;background:rgba(209,111,160,0.2);transition:background 0.3s;display:none}
+.quiz-prog-dot.done{background:linear-gradient(90deg,#F9A8C9,#9B6FD4);display:none}
 .quiz-q{font-family:‘Baloo 2’,cursive;font-weight:800;font-size:1.15rem;color:#3D2B52;margin-bottom:18px;text-align:center}
 .quiz-opt{display:block;width:100%;margin:8px 0;padding:13px 18px;background:#FFF0F8;border:1.5px solid rgba(249,168,201,0.4);border-radius:16px;font-family:‘Baloo 2’,cursive;font-weight:700;font-size:0.95rem;color:#9070B8;cursor:pointer;transition:all 0.2s;text-align:left}
 .quiz-opt:hover{background:linear-gradient(135deg,#FFF0F8,#F0E8FF);border-color:rgba(155,111,212,0.5);transform:translateX(4px)}

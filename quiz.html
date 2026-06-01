@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quiz | Mahsa Moon Studio</title>
+<meta name="description" content="Take the Kawaii Animal Kingdom personality quiz! Discover your kawaii spirit animal. A fun activity for kids and parents by Mahsa Moon.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://mahsamoon.com/quiz.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Nunito',sans-serif;
+  background:linear-gradient(180deg, #FFE8F4 0%, #D4EEFF 12%, #EDE0FF 24%, #D4EEFF 36%, #EDE0FF 48%, #D4EEFF 60%, #EDE0FF 72%, #D4EEFF 84%, #EDE0FF 100%);
+  background-attachment:fixed;
+  min-height:100vh;
+  color:#3D2B52;
+  overflow-x:hidden;
+}
+
+/* Bubble canvas */
+#bubble-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  background:linear-gradient(135deg, rgba(212,238,255,0.95), rgba(237,224,255,0.95), rgba(255,240,248,0.95));
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(233,180,210,0.3);
+  padding:0 20px;
+  height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+  z-index:999;
+  box-shadow:0 2px 16px rgba(209,111,160,0.1);
+}
+.nav-logo{
+  font-family:'Baloo 2',cursive;font-weight:800;font-size:1rem;
+  background:linear-gradient(135deg,#D06FA0,#9B6FD4);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  text-decoration:none;
+}
+.nav-back{
+  font-family:'Baloo 2',cursive;font-weight:700;font-size:0.85rem;
+  color:#9B6FD4;text-decoration:none;
+  background:rgba(201,184,245,0.15);
+  border:1.5px solid rgba(201,184,245,0.4);
+  border-radius:999px;
+  padding:6px 14px;
+  transition:all 0.2s;
+}
+.nav-back:hover{background:rgba(201,184,245,0.3);}
+
+/* PAGE WRAPPER */
+.page{
+  position:relative;z-index:1;
+  padding-top:80px;
+  padding-bottom:60px;
+  min-height:100vh;
+}
+
+.container{max-width:640px;margin:0 auto;padding:0 20px;}
+
+/* HEADER */
+.quiz-header{text-align:center;padding:32px 0 24px;}
+.eyebrow{
+  font-family:'Baloo 2',cursive;font-weight:700;font-size:0.75rem;
+  letter-spacing:2px;text-transform:uppercase;
+  color:#D06FA0;margin-bottom:10px;
+}
+.page-title{
+  font-family:'Baloo 2',cursive;font-weight:800;font-size:2rem;
+  background:linear-gradient(135deg,#D06FA0,#9B6FD4);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1.2;margin-bottom:10px;
+}
+.page-sub{
+  font-size:0.95rem;color:#9070B8;font-weight:600;line-height:1.6;
+  max-width:420px;margin:0 auto;
+}
+
+/* QUIZ BOX */
+.quiz-box{
+  background:rgba(255,255,255,0.88);
+  border-radius:28px;
+  padding:32px 28px;
+  box-shadow:0 12px 48px rgba(209,111,160,0.15);
+  border:1.5px solid rgba(249,168,201,0.25);
+  margin-bottom:32px;
+}
+
+/* PROGRESS */
+.quiz-progress{
+  display:flex;gap:6px;justify-content:center;margin-bottom:28px;
+}
+.quiz-prog-dot{
+  height:6px;flex:1;max-width:60px;
+  border-radius:3px;
+  background:rgba(209,111,160,0.15);
+  transition:background 0.4s;
+}
+.quiz-prog-dot.done{
+  background:linear-gradient(90deg,#F9A8C9,#9B6FD4);
+}
+
+/* QUESTION */
+.quiz-q{
+  font-family:'Baloo 2',cursive;font-weight:800;font-size:1.15rem;
+  color:#3D2B52;margin-bottom:20px;text-align:center;line-height:1.4;
+}
+.quiz-step{display:none;}
+.quiz-step.active{display:block;animation:fadeSlideIn 0.3s ease;}
+
+@keyframes fadeSlideIn{
+  from{opacity:0;transform:translateY(12px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* OPTIONS */
+.quiz-opt{
+  display:block;width:100%;
+  margin:9px 0;
+  padding:14px 18px;
+  background:rgba(255,240,248,0.6);
+  border:1.5px solid rgba(209,111,160,0.2);
+  border-radius:16px;
+  font-family:'Nunito',sans-serif;font-weight:700;font-size:0.92rem;
+  color:#5A3E7A;
+  text-align:left;
+  cursor:pointer;
+  transition:all 0.2s;
+}
+.quiz-opt:hover{
+  background:linear-gradient(135deg,#FFF0F8,#F0E8FF);
+  border-color:rgba(155,111,212,0.5);
+  transform:translateX(4px);
+  box-shadow:0 4px 16px rgba(209,111,160,0.12);
+}
+
+/* RESULT */
+#qresult{display:none;text-align:center;animation:fadeSlideIn 0.4s ease;}
+.result-emoji{font-size:4.5rem;margin-bottom:12px;display:block;}
+.result-name{
+  font-family:'Baloo 2',cursive;font-weight:800;font-size:1.5rem;
+  background:linear-gradient(135deg,#D06FA0,#9B6FD4);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:8px;
+}
+.result-trait{
+  font-size:0.75rem;font-weight:800;letter-spacing:1.5px;
+  text-transform:uppercase;color:#C9B8F5;margin-bottom:16px;
+}
+.result-desc{
+  font-size:0.9rem;color:#7A6085;line-height:1.75;
+  max-width:340px;margin:0 auto 14px;
+}
+.result-special{
+  font-size:0.95rem;font-weight:800;color:#D06FA0;
+  line-height:1.6;max-width:320px;margin:0 auto 24px;
+}
+.btn-try-again{
+  background:linear-gradient(135deg,#F9A8C9,#C9B8F5);
+  border:none;color:white;
+  font-family:'Baloo 2',cursive;font-weight:800;font-size:0.88rem;
+  padding:12px 28px;border-radius:999px;
+  cursor:pointer;transition:opacity 0.2s;
+}
+.btn-try-again:hover{opacity:0.88;}
+
+/* BACK LINK */
+.back-wrap{text-align:center;margin-top:8px;}
+.back-link{
+  font-family:'Baloo 2',cursive;font-weight:700;font-size:0.88rem;
+  color:#9B6FD4;text-decoration:none;
+}
+.back-link:hover{text-decoration:underline;}
+
+/* FOOTER */
+footer{
+  text-align:center;padding:32px 20px 20px;
+  font-size:0.78rem;color:#C8B8D8;font-weight:600;
+  position:relative;z-index:1;
+}
+footer a{color:#D06FA0;text-decoration:none;}
+footer a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<canvas id="bubble-canvas"></canvas>
+
+<nav>
+  <a href="kawaii/" class="nav-logo">🐾 Kawaii Animal Kingdom</a>
+  <a href="kawaii/" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="page">
+  <div class="container">
+
+    <div class="quiz-header">
+      <p class="eyebrow">✦ Find Your Animal ✦</p>
+      <h1 class="page-title">Which Animal Are You?</h1>
+      <p class="page-sub">A fun activity for parents and children to enjoy together — discover your kawaii spirit animal! 🌸</p>
+    </div>
+
+    <div class="quiz-box">
+
+      <!-- Progress dots -->
+      <div class="quiz-progress" id="prog-dots">
+        <div class="quiz-prog-dot" id="dot1"></div>
+        <div class="quiz-prog-dot" id="dot2"></div>
+        <div class="quiz-prog-dot" id="dot3"></div>
+        <div class="quiz-prog-dot" id="dot4"></div>
+        <div class="quiz-prog-dot" id="dot5"></div>
+      </div>
+
+      <!-- Q1 -->
+      <div class="quiz-step active" id="qs1">
+        <p class="quiz-q">Q1 · How do you like to spend your free time?</p>
+        <button class="quiz-opt" onclick="quizAnswer(1,'A')">🌊 Swimming or playing near water</button>
+        <button class="quiz-opt" onclick="quizAnswer(1,'B')">🌿 Exploring forests and nature</button>
+        <button class="quiz-opt" onclick="quizAnswer(1,'C')">🎨 Drawing, crafting, or creating</button>
+        <button class="quiz-opt" onclick="quizAnswer(1,'D')">💛 Spending time with the ones I love</button>
+      </div>
+
+      <!-- Q2 -->
+      <div class="quiz-step" id="qs2">
+        <p class="quiz-q">Q2 · When something goes wrong, what do you usually do?</p>
+        <button class="quiz-opt" onclick="quizAnswer(2,'A')">⚡ Jump straight in and try to fix it</button>
+        <button class="quiz-opt" onclick="quizAnswer(2,'B')">🧠 Stop, think and figure out the best solution</button>
+        <button class="quiz-opt" onclick="quizAnswer(2,'C')">🌸 Take a deep breath and wait for things to calm down</button>
+        <button class="quiz-opt" onclick="quizAnswer(2,'D')">🤗 Look for someone to talk to and get support</button>
+      </div>
+
+      <!-- Q3 -->
+      <div class="quiz-step" id="qs3">
+        <p class="quiz-q">Q3 · In a group, you are usually the one who...</p>
+        <button class="quiz-opt" onclick="quizAnswer(3,'A')">👑 Takes charge and leads everyone</button>
+        <button class="quiz-opt" onclick="quizAnswer(3,'B')">💡 Comes up with clever ideas and plans</button>
+        <button class="quiz-opt" onclick="quizAnswer(3,'C')">🎉 Makes everything more fun and colourful</button>
+        <button class="quiz-opt" onclick="quizAnswer(3,'D')">💞 Makes sure everyone feels included and happy</button>
+      </div>
+
+      <!-- Q4 -->
+      <div class="quiz-step" id="qs4">
+        <p class="quiz-q">Q4 · Where would you love to spend a perfect day?</p>
+        <button class="quiz-opt" onclick="quizAnswer(4,'A')">🏖️ The ocean or a beautiful beach</button>
+        <button class="quiz-opt" onclick="quizAnswer(4,'B')">🌲 A magical forest full of adventure</button>
+        <button class="quiz-opt" onclick="quizAnswer(4,'C')">⛰️ High up in the mountains</button>
+        <button class="quiz-opt" onclick="quizAnswer(4,'D')">🌸 A sunny meadow full of flowers</button>
+      </div>
+
+      <!-- Q5 -->
+      <div class="quiz-step" id="qs5">
+        <p class="quiz-q">Q5 · How do your friends describe you?</p>
+        <button class="quiz-opt" onclick="quizAnswer(5,'A')">😄 The fun and cheerful one</button>
+        <button class="quiz-opt" onclick="quizAnswer(5,'B')">🦁 The brave and confident one</button>
+        <button class="quiz-opt" onclick="quizAnswer(5,'C')">🎨 The creative and artistic one</button>
+        <button class="quiz-opt" onclick="quizAnswer(5,'D')">🦉 The smart and thoughtful one</button>
+        <button class="quiz-opt" onclick="quizAnswer(5,'E')">🐘 The kind and gentle one</button>
+      </div>
+
+      <!-- Result -->
+      <div id="qresult">
+        <span class="result-emoji" id="q-emoji"></span>
+        <div class="result-name" id="q-animal"></div>
+        <div class="result-trait" id="q-trait"></div>
+        <p class="result-desc" id="q-desc"></p>
+        <p class="result-special" id="q-special"></p>
+        <button class="btn-try-again" onclick="quizReset()">🔄 Try Again</button>
+      </div>
+
+    </div><!-- end quiz-box -->
+
+    <div class="back-wrap">
+      <a href="kawaii/#books" class="back-link">📚 Browse the Books →</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Made with 💜 by <a href="kawaii/">Mahsa Moon Studio</a></p>
+</footer>
+
+<script>
+// ─────────────────────────────────────────
+// BUBBLE CANVAS
+// ─────────────────────────────────────────
+const cvs = document.getElementById('bubble-canvas');
+const ctx = cvs.getContext('2d');
+let bubbles = [];
+function resizeCvs() { cvs.width = window.innerWidth; cvs.height = window.innerHeight; }
+resizeCvs();
+window.addEventListener('resize', resizeCvs);
+function spawnBubbles(x, y, n) {
+  for (let i = 0; i < n; i++) {
+    bubbles.push({
+      x, y,
+      r: 4 + Math.random() * 7,
+      vx: (Math.random() - 0.5) * 2.2,
+      vy: -(1.5 + Math.random() * 2.5),
+      alpha: 0.75,
+      color: Math.random() > 0.5 ? '#F9A8C9' : '#C9B8F5'
+    });
+  }
+}
+function animBubbles() {
+  ctx.clearRect(0, 0, cvs.width, cvs.height);
+  bubbles = bubbles.filter(b => b.alpha > 0.02);
+  bubbles.forEach(b => {
+    b.x += b.vx; b.y += b.vy; b.alpha *= 0.96;
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+    ctx.strokeStyle = b.color;
+    ctx.lineWidth = 1.5;
+    ctx.globalAlpha = b.alpha;
+    ctx.stroke();
+    ctx.globalAlpha = b.alpha * 0.18;
+    ctx.fillStyle = b.color;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  });
+  requestAnimationFrame(animBubbles);
+}
+animBubbles();
+document.addEventListener('click', function(e) {
+  spawnBubbles(e.clientX, e.clientY, 5);
+});
+
+// ─────────────────────────────────────────
+// QUIZ
+// ─────────────────────────────────────────
+var quizAnswers = {};
+
+var animalData = {
+  dolphin: {
+    emoji:'🐬',
+    name:'You are a Dolphin!',
+    trait:'Playful · Joyful · Free-Spirited',
+    desc:'You are full of energy, love and laughter! You light up every room you walk into and bring happiness to everyone around you.',
+    special:'Your superpower is your joy — you make the world a brighter, happier place just by being you. ✨'
+  },
+  lion: {
+    emoji:'🦁',
+    name:'You are a Lion!',
+    trait:'Brave · Bold · Born to Lead',
+    desc:'You are confident, strong and fearless! You love adventure and are always ready to lead the way for others.',
+    special:'Your superpower is your courage — you inspire everyone around you to be brave too. ✨'
+  },
+  butterfly: {
+    emoji:'🦋',
+    name:'You are a Butterfly!',
+    trait:'Creative · Gentle · Beautiful Soul',
+    desc:'You see beauty in everything and express yourself through art, colour and creativity. You are sensitive, sweet and truly unique.',
+    special:'Your superpower is your creativity — you make the world more colourful and magical. ✨'
+  },
+  owl: {
+    emoji:'🦉',
+    name:'You are an Owl!',
+    trait:'Wise · Thoughtful · Deep Thinker',
+    desc:'You are calm, observant and incredibly smart. You think before you speak, and when you do, people always listen.',
+    special:'Your superpower is your wisdom — you always know exactly the right thing to say. ✨'
+  },
+  fox: {
+    emoji:'🦊',
+    name:'You are a Fox!',
+    trait:'Curious · Clever · Adventurous',
+    desc:'You are quick-thinking, curious and love exploring new ideas. You always find creative solutions and your own unique path.',
+    special:'Your superpower is your cleverness — you can figure out anything life throws at you. ✨'
+  },
+  elephant: {
+    emoji:'🐘',
+    name:'You are an Elephant!',
+    trait:'Kind · Loyal · Big-Hearted',
+    desc:'You have the biggest, warmest heart of anyone. You love deeply, care endlessly and always make sure the people around you feel loved.',
+    special:'Your superpower is your love — you make everyone feel safe, seen and special. ✨'
+  },
+  panda: {
+    emoji:'🐼',
+    name:'You are a Panda!',
+    trait:'Sweet · Peaceful · Irresistibly Adorable',
+    desc:'You are gentle, easygoing and bring a calming energy wherever you go. You love comfort, peace and the simple joys of life.',
+    special:'Your superpower is your sweetness — just being around you makes everything feel better. ✨'
+  },
+  turtle: {
+    emoji:'🐢',
+    name:'You are a Sea Turtle!',
+    trait:'Patient · Calm · Quietly Magical',
+    desc:'You are patient, steady and wise. You move at your own pace and never let the world rush you — and that is your greatest strength.',
+    special:'Your superpower is your peace — you remind everyone that slow and steady always wins. ✨'
+  }
+};
+
+function updateProgress(q) {
+  for (var i = 1; i <= 5; i++) {
+    var dot = document.getElementById('dot' + i);
+    if (i < q) dot.classList.add('done');
+    else dot.classList.remove('done');
+  }
+}
+
+function quizAnswer(q, ans) {
+  quizAnswers[q] = ans;
+
+  var animals = ['dolphin','lion','butterfly','owl','fox','elephant','panda','turtle'];
+  var scores = {};
+  animals.forEach(function(a){ scores[a] = 0; });
+
+  var q1 = quizAnswers[1];
+  if (q1==='A') { scores.dolphin+=2; scores.turtle+=2; }
+  if (q1==='B') { scores.lion+=2; scores.fox+=2; }
+  if (q1==='C') { scores.butterfly+=2; scores.owl+=2; }
+  if (q1==='D') { scores.elephant+=2; scores.panda+=2; }
+
+  var q2 = quizAnswers[2];
+  if (q2==='A') { scores.dolphin+=2; scores.lion+=2; }
+  if (q2==='B') { scores.fox+=2; scores.owl+=2; }
+  if (q2==='C') { scores.panda+=2; scores.turtle+=2; }
+  if (q2==='D') { scores.elephant+=2; scores.butterfly+=2; }
+
+  var q3 = quizAnswers[3];
+  if (q3==='A') { scores.lion+=3; }
+  if (q3==='B') { scores.fox+=3; scores.owl+=2; }
+  if (q3==='C') { scores.butterfly+=3; scores.dolphin+=2; }
+  if (q3==='D') { scores.elephant+=3; scores.panda+=2; scores.turtle+=1; }
+
+  var q4 = quizAnswers[4];
+  if (q4==='A') { scores.dolphin+=3; scores.turtle+=3; }
+  if (q4==='B') { scores.lion+=3; scores.fox+=3; }
+  if (q4==='C') { scores.owl+=3; scores.lion+=2; }
+  if (q4==='D') { scores.butterfly+=3; scores.panda+=2; scores.elephant+=2; }
+
+  var q5 = quizAnswers[5];
+  if (q5==='A') { scores.dolphin+=3; }
+  if (q5==='B') { scores.lion+=3; }
+  if (q5==='C') { scores.butterfly+=3; }
+  if (q5==='D') { scores.owl+=3; scores.fox+=2; }
+  if (q5==='E') { scores.elephant+=3; scores.panda+=2; scores.turtle+=1; }
+
+  if (q < 5) {
+    document.getElementById('qs'+q).style.display='none';
+    document.getElementById('qs'+q).classList.remove('active');
+    document.getElementById('qs'+(q+1)).style.display='block';
+    document.getElementById('qs'+(q+1)).classList.add('active');
+    updateProgress(q+1);
+  } else {
+    var top = animals.reduce(function(a,b){ return scores[a]>=scores[b]?a:b; });
+    showResult(top);
+  }
+}
+
+function showResult(animal) {
+  var d = animalData[animal];
+  document.getElementById('qs5').style.display='none';
+  document.getElementById('qs5').classList.remove('active');
+  // Mark all dots done
+  for (var i = 1; i <= 5; i++) {
+    document.getElementById('dot'+i).classList.add('done');
+  }
+  document.getElementById('q-emoji').textContent = d.emoji;
+  document.getElementById('q-animal').textContent = d.name;
+  document.getElementById('q-trait').textContent = d.trait;
+  document.getElementById('q-desc').textContent = d.desc;
+  document.getElementById('q-special').textContent = d.special;
+  document.getElementById('qresult').style.display='block';
+}
+
+function quizReset() {
+  quizAnswers = {};
+  ['qs2','qs3','qs4','qs5','qresult'].forEach(function(id){
+    document.getElementById(id).style.display='none';
+    document.getElementById(id).classList.remove('active');
+  });
+  document.getElementById('qresult').style.display='none';
+  document.getElementById('qs1').style.display='block';
+  document.getElementById('qs1').classList.add('active');
+  for (var i = 1; i <= 5; i++) {
+    document.getElementById('dot'+i).classList.remove('done');
+  }
+}
+</script>
+</body>
+</html>

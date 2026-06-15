@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kawaii Alphabet Adventures | Mahsa Moon Studio</title>
+  <meta name="description" content="Color, trace and count A to Z with the cutest kawaii fruits & veggies! Ages 3+.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --pink: #D06FA0;
+      --pink-light: #F9A8C9;
+      --lavender: #C9B8F5;
+      --purple: #9B6FD4;
+      --purple-dark: #3D2B52;
+      --blue: #7BBDE8;
+      --blush: #FFF0F8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--blush);
+      color: var(--purple-dark);
+      overflow-x: hidden;
+    }
+
+    /* === BUBBLE CANVAS === */
+    #bubble-canvas {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; z-index: 9000;
+    }
+
+    /* === NAV === */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(255, 240, 248, 0.93);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(209, 111, 160, 0.2);
+      box-shadow: 0 2px 20px rgba(209, 111, 160, 0.08);
+    }
+
+    .nav-logo {
+      font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1rem;
+      background: linear-gradient(135deg, #D06FA0, #9B6FD4);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      text-decoration: none;
+    }
+
+    .nav-cta {
+      font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 0.82rem;
+      color: white; text-decoration: none;
+      background: linear-gradient(135deg, #D06FA0, #9B6FD4);
+      border-radius: 999px; padding: 8px 20px;
+      box-shadow: 0 4px 14px rgba(155, 111, 212, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(155, 111, 212, 0.5); }
+
+    /* === HERO === */
+    .section-hero {
+      position: relative; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(160deg, #FFE8F4 0%, #EDE0FF 55%, #D4EEFF 100%);
+    }
+
+    .hero-fruits-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+
+    .fruit-float {
+      position: absolute; font-size: 2.2rem; opacity: 0;
+      animation: floatUp 9s ease-in-out infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(105vh) rotate(-15deg) scale(0.8); opacity: 0; }
+      8%   { opacity: 0.65; }
+      92%  { opacity: 0.65; }
+      100% { transform: translateY(-15vh) rotate(15deg) scale(1.1); opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative; z-index: 1; text-align: center; padding: 20px;
+    }
+
+    .hero-badge {
+      font-family: 'Baloo 2', cursive; font-weight: 800;
+      font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--pink); margin-bottom: 14px;
+    }
+
+    .hero-title {
+      font-family: 'Baloo 2', cursive; font-weight: 900;
+      font-size: clamp(2.8rem, 9vw, 6.5rem);
+      line-height: 1.05;
+      background: linear-gradient(135deg, #D06FA0, #9B6FD4, #7BBDE8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 10px;
+    }
+
+    .hero-series {
+      font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.2rem;
+      color: var(--purple); margin-bottom: 6px;
+    }
+
+    .hero-desc {
+      font-size: 0.92rem; color: #7B6AAA; max-width: 400px;
+      margin: 0 auto 28px; line-height: 1.75; font-weight: 600;
+    }
+
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 0.95rem;
+      color: white; text-decoration: none;
+      background: linear-gradient(135deg, #D06FA0, #9B6FD4);
+      border-radius: 999px; padding: 14px 32px;
+      box-shadow: 0 6px 22px rgba(155, 111, 212, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(155, 111, 212, 0.55); }
+
+    .btn-ghost {
+      font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 0.95rem;
+      color: var(--purple); text-decoration: none;
+      background: rgba(255,255,255,0.75); border: 2px solid rgba(155, 111, 212, 0.4);
+      border-radius: 999px; padding: 12px 28px;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { transform: translateY(-2px); background: rgba(255,255,255,0.95); }
+
+    .scroll-hint {
+      position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      animation: shintFadeIn 1s 2.5s ease-out both;
+    }
+    .scroll-hint span { font-size: 0.68rem; font-weight: 700; color: var(--purple); letter-spacing: 2px; text-transform: uppercase; }
+    .scroll-chevron {
+      width: 18px; height: 18px;
+      border-right: 2px solid var(--purple); border-bottom: 2px solid var(--purple);
+      transform: rotate(45deg);
+      animation: chevBounce 1.4s ease-in-out infinite;
+    }
+    @keyframes shintFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes chevBounce {
+      0%, 100% { transform: rotate(45deg) translate(0,0); }
+      50% { transform: rotate(45deg) translate(3px,3px); }
+    }
+
+    /* === INTRO === */
+    .section-intro {
+      padding: 90px 24px;
+      text-align: center; background: white;
+    }
+
+    .eyebrow {
+      font-family: 'Baloo 2', cursive; font-weight: 800;
+      font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--pink); margin-bottom: 10px;
+    }
+
+    .section-h2 {
+      font-family: 'Baloo 2', cursive; font-weight: 900;
+      font-size: clamp(1.9rem, 5vw, 3.4rem);
+      background: linear-gradient(135deg, #D06FA0, #9B6FD4);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 18px;
+    }
+
+    .intro-body {
+      font-size: 0.98rem; color: #5B4A7A; max-width: 540px;
+      margin: 0 auto; line-height: 1.85; font-weight: 600;
+    }
+
+    /* === A-Z ALPHABET WRAPPER + STICKY === */
+    #alphabet-wrapper { position: relative; }  /* height set by JS */
+
+    #alphabet-sticky {
+      height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: linear-gradient(160deg, #FFE8F4 0%, #EDE0FF 100%);
+      overflow: hidden; position: relative;
+    }
+
+    .az-label {
+      position: absolute; top: 24px;
+      font-family: 'Baloo 2', cursive; font-weight: 800;
+      font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--pink);
+    }
+
+    /* Progress bar */
+    .az-progress {
+      position: absolute; bottom: 24px;
+      left: 50%; transform: translateX(-50%);
+      display: flex; gap: 3px; flex-wrap: wrap; justify-content: center; max-width: 380px;
+    }
+
+    .prog-ch {
+      font-family: 'Baloo 2', cursive; font-size: 0.62rem; font-weight: 700;
+      width: 16px; text-align: center; color: rgba(155, 111, 212, 0.25);
+      transition: color 0.3s, transform 0.3s;
+    }
+    .prog-ch.done { color: rgba(249, 168, 201, 0.6); }
+    .prog-ch.active { color: var(--purple); transform: scale(1.4); }
+
+    /* Letter slides */
+    .letter-slide {
+      position: absolute;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+      visibility: hidden; opacity: 0;
+      pointer-events: none;
+    }
+
+    .ls-emoji {
+      font-size: clamp(5rem, 16vw, 10rem);
+      line-height: 1;
+      filter: drop-shadow(0 12px 32px rgba(155,111,212,0.28));
+    }
+
+    .ls-char {
+      font-family: 'Baloo 2', cursive; font-weight: 900;
+      font-size: clamp(5rem, 18vw, 12rem);
+      background: linear-gradient(135deg, #D06FA0, #9B6FD4, #7BBDE8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1;
+    }
+
+    .ls-word {
+      font-family: 'Baloo 2', cursive; font-weight: 800;
+      font-size: clamp(1.3rem, 3.5vw, 2.2rem);
+      color: var(--purple);
+    }
+
+    /* === FEATURES === */
+    .section-features { padding: 90px 24px; background: white; }
+
+    .features-inner { max-width: 700px; margin: 0 auto; }
+
+    .feat-grid { display: flex; flex-direction: column; gap: 14px; margin-top: 48px; }
+
+    .feat-card {
+      background: var(--blush); border: 1.5px solid rgba(209,111,160,0.15);
+      border-radius: 20px; padding: 20px 24px;
+      display: flex; align-items: center; gap: 18px;
+      opacity: 0;
+      box-shadow: 0 2px 14px rgba(209,111,160,0.06);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .feat-card:hover {
+      border-color: rgba(249,168,201,0.5);
+      box-shadow: 0 8px 28px rgba(209,111,160,0.16);
+    }
+    .feat-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .feat-title { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 0.95rem; color: var(--purple-dark); margin-bottom: 4px; }
+    .feat-desc { font-size: 0.8rem; color: #B090C8; font-weight: 600; line-height: 1.5; }
+
+    /* === BOOK SECTION === */
+    .section-book {
+      padding: 90px 24px;
+      background: linear-gradient(160deg, #FFE8F4 0%, #EDE0FF 100%);
+      display: flex; align-items: center; justify-content: center; min-height: 80vh;
+    }
+
+    .book-inner {
+      max-width: 880px; width: 100%;
+      display: flex; gap: 48px; align-items: center;
+      flex-wrap: wrap; justify-content: center;
+    }
+
+    .book-cover-wrap {
+      width: 260px; flex-shrink: 0;
+      opacity: 0; transform: translateY(50px);
+    }
+
+    .book-visual {
+      width: 260px; height: 336px;
+      background: linear-gradient(135deg, #D06FA0, #9B6FD4);
+      border-radius: 16px;
+      box-shadow: 0 24px 64px rgba(155,111,212,0.3), 0 4px 16px rgba(155,111,212,0.2);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 10px; padding: 28px;
+    }
+
+    .bv-emojis { font-size: 1.6rem; letter-spacing: 5px; }
+    .bv-title {
+      font-family: 'Baloo 2', cursive; font-weight: 900; font-size: 1.2rem;
+      color: white; text-align: center; line-height: 1.25;
+    }
+    .bv-author {
+      font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 0.72rem;
+      color: rgba(255,255,255,0.78);
+    }
+
+    .book-details {
+      flex: 1; min-width: 250px;
+      opacity: 0; transform: translateX(60px);
+    }
+
+    .book-tag {
+      display: inline-block; background: #F0E8FF; color: var(--purple);
+      border: 1.5px solid rgba(155,111,212,0.3); border-radius: 999px;
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 4px 14px; margin-bottom: 12px;
+    }
+
+    .book-h3 {
+      font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.5rem;
+      color: var(--purple-dark); line-height: 1.3; margin-bottom: 12px;
+    }
+
+    .book-blurb {
+      font-size: 0.88rem; color: #8B6AAA; line-height: 1.8;
+      font-weight: 600; margin-bottom: 20px;
+    }
+
+    .book-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .book-pill {
+      background: #F5EEFF; border: 1px solid rgba(155,111,212,0.2);
+      border-radius: 999px; font-size: 0.65rem; font-weight: 700;
+      color: var(--purple); padding: 5px 14px;
+    }
+
+    /* === CTA === */
+    .section-cta {
+      padding: 110px 24px; background: var(--purple-dark);
+      text-align: center; overflow: hidden; position: relative;
+    }
+
+    .cta-bg-fruits {
+      position: absolute; inset: 0; pointer-events: none;
+      font-size: 2.8rem; opacity: 0.07;
+      display: flex; flex-wrap: wrap; gap: 24px;
+      align-items: center; justify-content: center;
+    }
+
+    .cta-eyebrow {
+      font-family: 'Baloo 2', cursive; font-weight: 800;
+      font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--pink-light); margin-bottom: 16px; position: relative;
+    }
+
+    .cta-h2 {
+      font-family: 'Baloo 2', cursive; font-weight: 900;
+      font-size: clamp(2rem, 6vw, 4.5rem);
+      background: linear-gradient(135deg, #F9A8C9, #C9B8F5);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 16px; position: relative;
+    }
+
+    .cta-sub {
+      font-size: 1rem; color: rgba(201, 184, 245, 0.8);
+      font-weight: 600; margin-bottom: 40px; position: relative;
+    }
+
+    .cta-btn {
+      font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.1rem;
+      color: var(--purple-dark); text-decoration: none;
+      background: linear-gradient(135deg, #F9A8C9, #C9B8F5);
+      border-radius: 999px; padding: 18px 52px;
+      box-shadow: 0 8px 32px rgba(249,168,201,0.4);
+      display: inline-block; position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cta-btn:hover { transform: scale(1.05); box-shadow: 0 14px 40px rgba(249,168,201,0.55); }
+
+    /* === FOOTER === */
+    footer {
+      background: linear-gradient(135deg, #2A1E3F, #3D2B52);
+      padding: 48px 24px; text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 1.3rem;
+      background: linear-gradient(135deg, #F9A8C9, #C9B8F5);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 6px;
+    }
+
+    .footer-sub { font-size: 0.78rem; color: rgba(255,255,255,0.35); margin-bottom: 14px; }
+    .footer-emojis { font-size: 1rem; letter-spacing: 6px; margin-bottom: 14px; }
+    .footer-copy { font-size: 0.68rem; color: rgba(255,255,255,0.18); }
+
+    /* === REDUCED MOTION === */
+    @media (prefers-reduced-motion: reduce) {
+      .fruit-float, .scroll-chevron { animation: none; }
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 600px) {
+      .hero-title { font-size: clamp(2.4rem, 12vw, 3.5rem); }
+      .ls-char { font-size: clamp(4rem, 22vw, 7rem); }
+      .ls-emoji { font-size: clamp(3.5rem, 18vw, 6rem); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Bubble canvas (click anywhere) -->
+<canvas id="bubble-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">✨ Mahsa Moon Studio</span>
+  <a href="https://amzn.to/4eGGp4k" target="_blank" rel="noopener" class="nav-cta">🛒 Get the Book</a>
+</nav>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section class="section-hero">
+  <div class="hero-fruits-bg" id="heroBg"></div>
+  <div class="hero-content" id="heroContent">
+    <p class="hero-badge">✦ Kawaii Alphabet Adventures ✦</p>
+    <h1 class="hero-title">Kawaii<br>Alphabet<br>Adventures</h1>
+    <p class="hero-series">Fruits &amp; Veggies 🍓</p>
+    <p class="hero-desc">Color, trace, and count your way through A–Z with the cutest kawaii fruits and veggies. A joyful learning adventure for little ones ages 3+.</p>
+    <div class="hero-btns">
+      <a href="https://amzn.to/4eGGp4k" target="_blank" rel="noopener" class="btn-primary">🛒 Get on Amazon</a>
+      <a href="#alphabet-wrapper" class="btn-ghost">✨ Explore A–Z</a>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">
+    <span>Scroll to explore</span>
+    <div class="scroll-chevron"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════ INTRO ══════════════════════ -->
+<section class="section-intro" id="introSection">
+  <p class="eyebrow">About the Book</p>
+  <h2 class="section-h2" id="introH2">A to Z, Fruit to Veg</h2>
+  <p class="intro-body" id="introBody">Every letter comes alive as a kawaii character — a smiling apple, a dancing banana, a cheerful carrot. Kids learn to recognize, trace, and count while falling in love with fruits and veggies along the way.</p>
+</section>
+
+<!-- ══════════════════════ A-Z JOURNEY ══════════════════════ -->
+<div id="alphabet-wrapper">
+  <div id="alphabet-sticky">
+    <p class="az-label">✦ The A–Z Journey ✦</p>
+    <!-- Letter slides injected by JS -->
+    <div class="az-progress" id="azProgress" aria-hidden="true"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════ FEATURES ══════════════════════ -->
+<section class="section-features" id="featuresSection">
+  <div class="features-inner">
+    <p class="eyebrow" style="text-align:center">What's Inside</p>
+    <h2 class="section-h2" style="text-align:center" id="featH2">Three Ways to Learn &amp; Play</h2>
+    <div class="feat-grid" id="featGrid">
+      <div class="feat-card" id="fc0">
+        <span class="feat-icon">🎨</span>
+        <div>
+          <div class="feat-title">Color Kawaii Characters</div>
+          <div class="feat-desc">Each fruit and veggie has its own adorable kawaii face — perfect for colouring with crayons, markers, or colored pencils.</div>
+        </div>
+      </div>
+      <div class="feat-card" id="fc1">
+        <span class="feat-icon">✏️</span>
+        <div>
+          <div class="feat-title">Trace Every Letter</div>
+          <div class="feat-desc">Dotted uppercase and lowercase letters guide little hands through proper letter formation — building confidence one stroke at a time.</div>
+        </div>
+      </div>
+      <div class="feat-card" id="fc2">
+        <span class="feat-icon">🔢</span>
+        <div>
+          <div class="feat-title">Count Along</div>
+          <div class="feat-desc">Counting activities reinforce number recognition — sneak in a little maths alongside all the alphabet fun!</div>
+        </div>
+      </div>
+      <div class="feat-card" id="fc3">
+        <span class="feat-icon">🌈</span>
+        <div>
+          <div class="feat-title">Rainbow Letter Guides</div>
+          <div class="feat-desc">Rainbow-coloured trace guides make practice extra vibrant — because learning is always better in full color.</div>
+        </div>
+      </div>
+      <div class="feat-card" id="fc4">
+        <span class="feat-icon">⭐</span>
+        <div>
+          <div class="feat-title">Ages 3 and Up</div>
+          <div class="feat-desc">Designed for preschool and kindergarten readiness — simple enough for brand-new learners, engaging for curious minds at every stage.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ BOOK SHOWCASE ══════════════════════ -->
+<section class="section-book" id="bookSection">
+  <div class="book-inner">
+    <div class="book-cover-wrap" id="bookCover">
+      <div class="book-visual">
+        <div class="bv-emojis">🍎🍌🥕</div>
+        <div class="bv-title">Kawaii Alphabet Adventures</div>
+        <div class="bv-emojis">🍓🍊🥦</div>
+        <div class="bv-author">by Mahsa Moon</div>
+      </div>
+    </div>
+    <div class="book-details" id="bookDetails">
+      <div class="book-tag">📚 Activity Book · Ages 3+</div>
+      <h3 class="book-h3">Kawaii Alphabet Adventures<br>Fruits &amp; Veggies</h3>
+      <p class="book-blurb">A full A-to-Z coloring, tracing, and counting adventure featuring 26 lovingly drawn kawaii fruit and veggie characters. Perfect for little learners who love cute things — and the grown-ups who want learning to feel like play.</p>
+      <div class="book-pills">
+        <span class="book-pill">🎨 Color</span>
+        <span class="book-pill">✏️ Trace</span>
+        <span class="book-pill">🔢 Count</span>
+        <span class="book-pill">📖 26 Letters</span>
+        <span class="book-pill">👶 Ages 3+</span>
+        <span class="book-pill">🇺🇸 Amazon US</span>
+        <span class="book-pill">🇨🇦 Amazon CA</span>
+      </div>
+      <div>
+        <a href="https://amzn.to/4eGGp4k" target="_blank" rel="noopener" class="btn-primary">🛒 Buy on Amazon</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ CTA ══════════════════════ -->
+<section class="section-cta" id="ctaSection">
+  <div class="cta-bg-fruits" aria-hidden="true">
+    🍎 🍌 🥕 🍇 🍆 🫐 🥝 🍋 🥭 🍊 🍑 🍒 🍓 🍅 🍉 🥒 🥦 🌽 🍐 🧅 🫑 🍈
+  </div>
+  <p class="cta-eyebrow" id="ctaEyebrow">Ready to Start the Adventure?</p>
+  <h2 class="cta-h2" id="ctaH2">Every Letter is a Story</h2>
+  <p class="cta-sub" id="ctaSub">Give your little one 26 reasons to love learning. Available on Amazon.</p>
+  <a href="https://amzn.to/4eGGp4k" target="_blank" rel="noopener" class="cta-btn" id="ctaBtn">🛒 Get Kawaii Alphabet Adventures</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Mahsa Moon Studio</div>
+  <p class="footer-sub">Creating joyful learning experiences for little ones</p>
+  <div class="footer-emojis">🍎 🍌 🥕 🍓 🍊 🥦</div>
+  <p class="footer-copy">© 2024 Mahsa Moon Studio · All rights reserved.</p>
+</footer>
+
+<script>
+  /* ─── BUBBLE CANVAS ─── */
+  const cvs = document.getElementById('bubble-canvas');
+  const ctx = cvs.getContext('2d');
+  let bubbles = [];
+  function resizeCvs() { cvs.width = window.innerWidth; cvs.height = window.innerHeight; }
+  resizeCvs();
+  window.addEventListener('resize', resizeCvs);
+  function spawnBubbles(x, y, n) {
+    for (let i = 0; i < n; i++) {
+      bubbles.push({ x, y, r: 3 + Math.random() * 7, vx: (Math.random() - .5) * 2.2, vy: -(1.5 + Math.random() * 2.5), alpha: 0.75, color: Math.random() > .5 ? '#F9A8C9' : '#C9B8F5' });
+    }
+  }
+  function animBubbles() {
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+    bubbles = bubbles.filter(b => b.alpha > 0.02);
+    bubbles.forEach(b => {
+      b.x += b.vx; b.y += b.vy; b.alpha *= 0.96;
+      ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+      ctx.strokeStyle = b.color; ctx.lineWidth = 1.5; ctx.globalAlpha = b.alpha; ctx.stroke();
+      ctx.globalAlpha = b.alpha * 0.18; ctx.fillStyle = b.color; ctx.fill(); ctx.globalAlpha = 1;
+    });
+    requestAnimationFrame(animBubbles);
+  }
+  animBubbles();
+  document.addEventListener('click', e => spawnBubbles(e.clientX, e.clientY, 6));
+
+  /* ─── FLOATING HERO FRUITS ─── */
+  const FRUITS = ['🍎','🍌','🥕','🍇','🍆','🍓','🥝','🍋','🥭','🍊','🍑','🍉','🥒','🥦','🍅','🍈'];
+  const heroBg = document.getElementById('heroBg');
+  for (let i = 0; i < 22; i++) {
+    const el = document.createElement('div');
+    el.className = 'fruit-float';
+    el.textContent = FRUITS[i % FRUITS.length];
+    el.style.left = (2 + Math.random() * 96) + '%';
+    el.style.animationDelay = (Math.random() * 9) + 's';
+    el.style.animationDuration = (6 + Math.random() * 7) + 's';
+    el.style.fontSize = (1.5 + Math.random() * 1.5) + 'rem';
+    heroBg.appendChild(el);
+  }
+
+  /* ─── GSAP SETUP ─── */
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ─── HERO ENTRANCE ─── */
+  const heroItems = document.querySelectorAll('.hero-badge, .hero-title, .hero-series, .hero-desc, .hero-btns');
+  gsap.set(heroItems, { y: 35, opacity: 0 });
+  gsap.to(heroItems, {
+    y: 0, opacity: 1, duration: 0.75, stagger: 0.12, ease: 'power2.out', delay: 0.4
+  });
+
+  /* ─── INTRO ─── */
+  gsap.set(['#introH2', '#introBody'], { y: 40, opacity: 0 });
+  gsap.to('#introH2', {
+    scrollTrigger: { trigger: '#introH2', start: 'top 82%' },
+    y: 0, opacity: 1, duration: 0.85, ease: 'power2.out'
+  });
+  gsap.to('#introBody', {
+    scrollTrigger: { trigger: '#introBody', start: 'top 82%' },
+    y: 0, opacity: 1, duration: 0.8, ease: 'power2.out', delay: 0.15
+  });
+
+  /* ─── A-Z DATA ─── */
+  const LETTERS = [
+    { ch:'A', emoji:'🍎', word:'Apple' },
+    { ch:'B', emoji:'🍌', word:'Banana' },
+    { ch:'C', emoji:'🥕', word:'Carrot' },
+    { ch:'D', emoji:'🍇', word:'Dragon Fruit' },
+    { ch:'E', emoji:'🍆', word:'Eggplant' },
+    { ch:'F', emoji:'🍓', word:'Fig' },
+    { ch:'G', emoji:'🍇', word:'Grape' },
+    { ch:'H', emoji:'🌿', word:'Herb' },
+    { ch:'I', emoji:'🥬', word:'Iceberg' },
+    { ch:'J', emoji:'🌶️', word:'Jalapeño' },
+    { ch:'K', emoji:'🥝', word:'Kiwi' },
+    { ch:'L', emoji:'🍋', word:'Lemon' },
+    { ch:'M', emoji:'🥭', word:'Mango' },
+    { ch:'N', emoji:'🍑', word:'Nectarine' },
+    { ch:'O', emoji:'🍊', word:'Orange' },
+    { ch:'P', emoji:'🍑', word:'Peach' },
+    { ch:'Q', emoji:'🍐', word:'Quince' },
+    { ch:'R', emoji:'🍒', word:'Raspberry' },
+    { ch:'S', emoji:'🍓', word:'Strawberry' },
+    { ch:'T', emoji:'🍅', word:'Tomato' },
+    { ch:'U', emoji:'🫐', word:'Ugli Fruit' },
+    { ch:'V', emoji:'🥦', word:'Veggie' },
+    { ch:'W', emoji:'🍉', word:'Watermelon' },
+    { ch:'X', emoji:'🌽', word:'Ximenia' },
+    { ch:'Y', emoji:'🧅', word:'Yam' },
+    { ch:'Z', emoji:'🥒', word:'Zucchini' }
+  ];
+
+  /* ─── GENERATE SLIDES + PROGRESS ─── */
+  const azWrapper = document.getElementById('alphabet-wrapper');
+  const azSticky = document.getElementById('alphabet-sticky');
+  const azProgress = document.getElementById('azProgress');
+
+  // Wrapper height: 26 * 100vh (one "page" per letter) + 1 extra vh for the pin end
+  azWrapper.style.height = (LETTERS.length * 100 + 100) + 'vh';
+
+  LETTERS.forEach((l, i) => {
+    // Slide
+    const slide = document.createElement('div');
+    slide.className = 'letter-slide';
+    slide.id = 'ls-' + i;
+    slide.innerHTML = `
+      <div class="ls-emoji" aria-hidden="true">${l.emoji}</div>
+      <div class="ls-char" aria-label="${l.ch}">${l.ch}</div>
+      <div class="ls-word">${l.word}</div>`;
+    azSticky.appendChild(slide);
+
+    // Progress indicator
+    const prog = document.createElement('span');
+    prog.className = 'prog-ch';
+    prog.id = 'pg-' + i;
+    prog.textContent = l.ch;
+    azProgress.appendChild(prog);
+  });
+
+  // Initial states for slides
+  gsap.set('.letter-slide', { autoAlpha: 0, scale: 0.75, y: 50 });
+
+  // Build the scrub-driven timeline
+  const azTl = gsap.timeline({ paused: true });
+
+  LETTERS.forEach((l, i) => {
+    const el = document.getElementById('ls-' + i);
+
+    // Fade in at position i in the timeline
+    azTl.to(el, { autoAlpha: 1, scale: 1, y: 0, duration: 0.45, ease: 'back.out(1.6)' }, i);
+
+    // Animate emoji pop-in (sub-tween inside same slot)
+    azTl.from(el.querySelector('.ls-emoji'), { scale: 0.4, rotation: -15, duration: 0.35, ease: 'back.out(2)' }, i + 0.05);
+
+    // Animate char slide-in
+    azTl.from(el.querySelector('.ls-char'), { x: -60, opacity: 0, duration: 0.4, ease: 'power3.out' }, i + 0.1);
+
+    // Animate word fade-up
+    azTl.from(el.querySelector('.ls-word'), { y: 18, opacity: 0, duration: 0.3, ease: 'power2.out' }, i + 0.25);
+
+    // Fade out (except last letter)
+    if (i < LETTERS.length - 1) {
+      azTl.to(el, { autoAlpha: 0, scale: 0.85, y: -40, duration: 0.4, ease: 'power2.in' }, i + 0.65);
+    }
+  });
+
+  // Attach to ScrollTrigger with pin + scrub
+  ScrollTrigger.create({
+    trigger: '#alphabet-wrapper',
+    pin: '#alphabet-sticky',
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: 1.2,
+    animation: azTl,
+    onUpdate(self) {
+      const idx = Math.min(Math.floor(self.progress * LETTERS.length), LETTERS.length - 1);
+      LETTERS.forEach((_, i) => {
+        const el = document.getElementById('pg-' + i);
+        el.className = 'prog-ch' + (i < idx ? ' done' : i === idx ? ' active' : '');
+      });
+    }
+  });
+
+  /* ─── FEATURES ─── */
+  gsap.set('#featH2', { y: 40, opacity: 0 });
+  gsap.to('#featH2', {
+    scrollTrigger: { trigger: '#featH2', start: 'top 82%' },
+    y: 0, opacity: 1, duration: 0.8, ease: 'power2.out'
+  });
+
+  const OFFSETS = [-60, 60, -60, 60, -60]; // alternating left/right
+  for (let i = 0; i < 5; i++) {
+    const fc = document.getElementById('fc' + i);
+    gsap.set(fc, { x: OFFSETS[i] });
+    gsap.to(fc, {
+      scrollTrigger: { trigger: fc, start: 'top 88%', toggleActions: 'play none none reverse' },
+      opacity: 1, x: 0, duration: 0.7, ease: 'power2.out', delay: i * 0.08
+    });
+  }
+
+  /* ─── BOOK SECTION ─── */
+  gsap.to('#bookCover', {
+    scrollTrigger: { trigger: '#bookCover', start: 'top 80%' },
+    opacity: 1, y: 0, duration: 1.0, ease: 'power2.out'
+  });
+  gsap.to('#bookDetails', {
+    scrollTrigger: { trigger: '#bookDetails', start: 'top 80%' },
+    opacity: 1, x: 0, duration: 1.0, ease: 'power2.out', delay: 0.2
+  });
+
+  // Subtle parallax on book cover
+  gsap.to('#bookCover', {
+    y: -40,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#bookSection',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: true
+    }
+  });
+
+  /* ─── CTA ─── */
+  gsap.set(['#ctaEyebrow', '#ctaH2', '#ctaSub'], { y: 32, opacity: 0 });
+  gsap.set('#ctaBtn', { scale: 0.85, opacity: 0 });
+
+  ScrollTrigger.create({
+    trigger: '#ctaSection',
+    start: 'top 72%',
+    onEnter() {
+      gsap.to('#ctaEyebrow', { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' });
+      gsap.to('#ctaH2', { y: 0, opacity: 1, duration: 0.75, ease: 'power2.out', delay: 0.1 });
+      gsap.to('#ctaSub', { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', delay: 0.22 });
+      gsap.to('#ctaBtn', { scale: 1, opacity: 1, duration: 0.65, ease: 'back.out(1.7)', delay: 0.4 });
+    }
+  });
+
+  /* ─── RECALCULATE ON RESIZE ─── */
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      azWrapper.style.height = (LETTERS.length * 100 + 100) + 'vh';
+      ScrollTrigger.refresh();
+    }, 200);
+  });
+</script>
+</body>
+</html>

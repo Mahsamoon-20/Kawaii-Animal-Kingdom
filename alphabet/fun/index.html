@@ -457,7 +457,7 @@
     <p class="hero-series">Fruits &amp; Veggies 🍓</p>
     <p class="hero-desc">Color, trace, and count your way through A–Z with the cutest kawaii fruits and veggies. A joyful learning adventure for little ones ages 3+.</p>
     <div class="hero-btns">
-      <a href="https://amzn.to/4eGGp4k" target="_blank" rel="noopener" class="btn-primary">🛒 Get on Amazon</a>
+      <a href="javascript:void(0)" onclick="openBook1()" class="btn-primary">🛒 Get on Amazon</a>
       <a href="#alphabet-wrapper" class="btn-ghost">✨ Explore A–Z</a>
     </div>
   </div>
@@ -536,7 +536,7 @@
         <span class="book-pill">🇨🇦 Amazon CA</span>
       </div>
       <div>
-        <a href="https://amzn.to/4eGGp4k" target="_blank" rel="noopener" class="btn-primary">🛒 Get on Amazon</a>
+        <a href="javascript:void(0)" onclick="openBook1()" class="btn-primary">🛒 Get on Amazon</a>
       </div>
     </div>
   </div>
@@ -550,7 +550,7 @@
   <p class="cta-eyebrow" id="ctaEyebrow">Ready to Start the Adventure?</p>
   <h2 class="cta-h2" id="ctaH2">Every Letter is a Story</h2>
   <p class="cta-sub" id="ctaSub">Give your little one 26 reasons to love learning. Available on Amazon.</p>
-  <a href="https://amzn.to/4eGGp4k" target="_blank" rel="noopener" class="cta-btn" id="ctaBtn">🛒 Get Kawaii Alphabet Adventures</a>
+  <a href="javascript:void(0)" onclick="openBook1()" class="cta-btn" id="ctaBtn">🛒 Get Kawaii Alphabet Adventures</a>
 </section>
 
 <!-- FOOTER -->
@@ -565,8 +565,8 @@
 
   // ── Amazon (region-aware) ──
   var ALPHA_LINKS = {us:'https://amzn.to/4eGGp4k', ca:'https://amzn.to/4egSyvt'};
-  var userCountry = 'us';
-  fetch('https://ipapi.co/json/').then(function(r){return r.json();}).then(function(d){if(d.country_code==='CA') userCountry='ca';}).catch(function(){});
+  var userCountry = (navigator.language||'').toLowerCase().indexOf('en-ca')>-1 ? 'ca' : 'us';
+  fetch('https://ipapi.co/json/').then(function(r){return r.json();}).then(function(d){if(d.country_code==='CA') userCountry='ca'; else if(d.country_code) userCountry='us';}).catch(function(){});
   function openBook1() { window.open(ALPHA_LINKS[userCountry] || ALPHA_LINKS.us, '_blank', 'noopener'); }
 
   // ── Nav menu ──

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D2T3ZE5HSV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-D2T3ZE5HSV');
+</script>
+<meta charset="UTF-8">
+<link rel="icon" type="image/jpeg" href="../favicon.png">
+<link rel="apple-touch-icon" href="../favicon.png">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stories | Mahsa Moon Studio</title>
+
+<!-- SEO -->
+<meta name="description" content="Magical illustrated storybooks by Mahsa Moon. Follow Lila and the Rainbow Key on an unforgettable adventure filled with magic, friendship, and courage — for little dreamers with big imaginations.">
+<meta name="keywords" content="Lila and the Rainbow Key, storybooks for kids, illustrated children's books, Mahsa Moon storybook, magical adventure book for kids, bedtime story book, picture book for children, kids fantasy story">
+<link rel="canonical" href="https://mahsamoon.com/stories/">
+<meta name="author" content="Mahsa Moon">
+<meta name="robots" content="index, follow">
+
+<!-- Schema: Book -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Book",
+      "name": "Lila and the Rainbow Key",
+      "author": { "@type": "Person", "name": "Mahsa Moon" },
+      "illustrator": { "@type": "Person", "name": "Mahsa Moon" },
+      "publisher": { "@type": "Organization", "name": "Mahsa Moon Studio" },
+      "genre": "Children's Storybook",
+      "audience": { "@type": "Audience", "audienceType": "Children" },
+      "description": "A tiny door. A magical key. A world waiting to be saved. When Lila discovers the Rainbow Key, she steps into an unforgettable adventure filled with magic, friendship, and courage."
+    }
+  ]
+}
+</script>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mahsamoon.com/stories/">
+<meta property="og:title" content="Magical Storybook Adventures – Mahsa Moon Studio">
+<meta property="og:description" content="Illustrated stories filled with unexpected friendships, brave little moments, and places you'll wish you could visit. Meet Lila and the Rainbow Key!">
+<meta property="og:image" content="https://mahsamoon.com/stories/lila-cover.jpeg">
+<meta property="og:site_name" content="Mahsa Moon Studio">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Magical Storybook Adventures – Mahsa Moon Studio">
+<meta name="twitter:description" content="Illustrated stories filled with unexpected friendships, brave little moments, and places you'll wish you could visit.">
+<meta name="twitter:image" content="https://mahsamoon.com/stories/lila-cover.jpeg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;600;700&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:linear-gradient(180deg, #FFE8F4 0%, #D4EEFF 12%, #EDE0FF 24%, #D4EEFF 36%, #EDE0FF 48%, #D4EEFF 60%, #EDE0FF 72%, #D4EEFF 84%, #EDE0FF 100%);background-attachment:fixed;color:#3D2B52;overflow-x:hidden;padding-top:60px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;background:linear-gradient(135deg, rgba(212,238,255,0.95), rgba(237,224,255,0.95), rgba(255,240,248,0.95));border-bottom:1.5px solid rgba(249,168,201,0.3);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;box-shadow:0 2px 20px rgba(209,111,160,0.08);flex-wrap:nowrap;overflow:hidden;}
+.nav-logo{font-family:'Baloo 2',cursive;font-weight:800;font-size:0.95rem;background:linear-gradient(135deg,#D06FA0,#9B6FD4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;white-space:nowrap;flex-shrink:1;min-width:0;overflow:hidden;}
+.nav-about{font-size:0.85rem;font-weight:700;text-decoration:none;padding:6px 14px;border-radius:999px;color:#B07ABE}
+
+/* BUBBLE CANVAS */
+#bubble-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998}
+
+/* SECTIONS */
+.section{padding:70px 24px;overflow:hidden}
+.section-white{padding:70px 24px;background:transparent;overflow:hidden;contain:paint}
+.container{max-width:600px;margin:0 auto}
+.eyebrow{text-align:center;font-family:'Baloo 2',cursive;font-weight:700;font-size:0.68rem;letter-spacing:4px;text-transform:uppercase;color:#D06FA0;margin-bottom:8px}
+.sec-title{text-align:center;font-family:'Baloo 2',cursive;font-weight:800;font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.2;margin-bottom:8px;background:linear-gradient(130deg,#D06FA0,#9B6FD4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sec-sub{text-align:center;font-size:0.92rem;color:#B090C8;font-weight:600;line-height:1.65;margin-bottom:40px}
+
+/* HERO */
+.hero{min-height:auto;display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 24px 60px;background:transparent;}
+.hero-badge{display:inline-block;background:rgba(255,255,255,0.7);border:1.5px solid rgba(201,184,245,0.7);color:#9B6FD4;font-size:0.68rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;padding:5px 18px;border-radius:999px;margin-bottom:18px}
+.hero-title{font-family:'Baloo 2',cursive;font-weight:800;font-size:clamp(2rem,8vw,4rem);line-height:1.15;margin-bottom:14px;background:linear-gradient(130deg,#D06FA0,#9460CF,#4DAAD6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:1rem;color:#B090C8;font-weight:600;line-height:1.7;margin-bottom:8px;max-width:480px;margin-left:auto;margin-right:auto}
+.hero-desc{font-size:0.92rem;color:#9070B8;font-weight:600;line-height:1.8;margin-bottom:28px;max-width:520px;margin-left:auto;margin-right:auto}
+.hero-btn{display:inline-block;padding:14px 36px;border-radius:999px;font-family:'Baloo 2',cursive;font-weight:800;font-size:1rem;text-decoration:none;background:linear-gradient(135deg,#F9A8C9,#9B6FD4);color:white;box-shadow:0 8px 24px rgba(155,111,212,0.4);transition:transform 0.2s;border:none;cursor:pointer}
+.hero-btn:hover{transform:translateY(-3px)}
+
+/* WELCOME STORY BOX */
+.story-box{max-width:580px;margin:20px auto 0;background:rgba(255,255,255,0.7);border:2px dashed rgba(209,111,160,0.3);border-radius:24px;padding:28px 26px;text-align:left;overflow:hidden}
+.story-box p{font-size:0.92rem;color:#9070B8;line-height:1.85;font-weight:600;margin-bottom:14px}
+.story-box p.highlight{font-size:1rem;color:#9B6FD4;font-weight:800;margin-bottom:0}
+
+/* BOOK CARD */
+.books-wrap{display:flex;flex-direction:column;align-items:center;gap:40px}
+.book-card{width:100%;max-width:360px;background:white;border-radius:22px;overflow:hidden;box-shadow:0 8px 28px rgba(209,111,160,0.12);position:relative;transition:transform 0.3s,box-shadow 0.3s;contain:content;border:2px solid rgba(249,168,201,0.5)}
+.book-card:hover{transform:translateY(-8px);box-shadow:0 20px 48px rgba(155,111,212,0.18)}
+.book-cover{width:100%;display:block}
+.book-info{padding:20px 22px 24px}
+.book-tag{display:inline-block;background:linear-gradient(135deg,#F9A8C9,#9B6FD4);color:white;font-size:0.68rem;font-weight:800;letter-spacing:1.5px;padding:5px 14px;border-radius:999px;margin-bottom:10px}
+.book-title{font-family:'Baloo 2',cursive;font-weight:800;font-size:1.15rem;line-height:1.3;margin-bottom:10px;background:linear-gradient(130deg,#D06FA0,#9B6FD4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.book-desc{font-size:0.85rem;color:#9070B8;line-height:1.7;margin-bottom:16px}
+.buy-btn{display:block;width:100%;text-align:center;padding:12px 20px;border-radius:999px;font-family:'Baloo 2',cursive;font-weight:800;font-size:0.9rem;text-decoration:none;background:linear-gradient(135deg,#F9A8C9,#9B6FD4);color:white;box-shadow:0 6px 18px rgba(155,111,212,0.3);border:none;cursor:pointer}
+
+/* FOOTER */
+footer{background:linear-gradient(135deg,#3D2B52,#2A1E3F);padding:40px 24px;text-align:center}
+.footer-logo{font-family:'Baloo 2',cursive;font-weight:800;font-size:1.3rem;background:linear-gradient(135deg,#F9A8C9,#C9B8F5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+.footer-by{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-bottom:4px}
+.footer-email{font-size:0.8rem;color:rgba(201,184,245,0.7);text-decoration:none;display:block;margin-bottom:16px}
+.footer-divider{width:50px;height:2px;margin:0 auto 16px;background:linear-gradient(135deg,#F9A8C9,#9B6FD4);border-radius:2px;opacity:0.4}
+.footer-animals{font-size:1rem;letter-spacing:6px;opacity:1}
+.footer-copy{font-size:0.68rem;color:rgba(255,255,255,0.15);margin-top:12px}
+
+/* MODALS */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(61,43,82,0.55);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;box-sizing:border-box;visibility:hidden}
+.modal-overlay.open{display:flex;visibility:visible}
+.modal-box{background:white;border-radius:28px;padding:32px 24px;max-width:340px;width:100%;text-align:center;box-shadow:0 24px 64px rgba(155,111,212,0.3);border:2px solid rgba(249,168,201,0.4);max-height:90vh;overflow-y:auto;animation:popIn 0.3s ease}
+@keyframes popIn{from{transform:scale(0.8);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* BUBBLES */
+@media (min-width: 768px) {
+body { font-size: 1.1rem; }
+.container { max-width: 700px; }
+.sec-title { font-size: clamp(2.2rem, 4vw, 3rem); }
+.sec-sub { font-size: 1.05rem; }
+.hero { padding: 90px 60px; }
+.hero-title { font-size: clamp(3rem, 6vw, 4.6rem); }
+.hero-sub { font-size: 1.15rem; }
+.hero-desc { font-size: 1rem; }
+.hero-btn { font-size: 1.1rem; padding: 16px 42px; }
+.book-card{max-width:400px}
+}
+
+body::-webkit-scrollbar{display:none;width:0;height:0}
+body{scrollbar-width:none;-ms-overflow-style:none}
+</style>
+</head>
+<body>
+<canvas id="bubble-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;"></canvas>
+<nav>
+  <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0;">
+    <a href="../" class="nav-about" style="white-space:nowrap;flex-shrink:0;background:rgba(201,184,245,0.2);border:1px solid rgba(201,184,245,0.4);">← Home</a>
+    <a href="#hero" class="nav-logo">Mahsa Moon</a>
+  </div>
+  <div>
+    <a href="mailto:mahsamoon.20@yahoo.com" class="nav-about" style="background:linear-gradient(135deg,#F9A8C9,#9B6FD4);color:white;">✉️ Contact</a>
+  </div>
+</nav>
+
+<div class="hero" id="hero">
+<div>
+<div class="hero-badge">✦ Stories by Mahsa Moon ✦</div>
+<h1 class="hero-title">Magical Storybook Adventures</h1>
+<p class="hero-sub">For little dreamers with big imaginations.</p>
+<p class="hero-desc">Discover illustrated stories filled with unexpected friendships, brave little moments, and places you'll wish you could visit.</p>
+<a href="#books" class="hero-btn">📖 Explore the Stories</a>
+</div>
+</div>
+
+<!-- WELCOME -->
+<div class="section-white" id="welcome">
+<div class="container">
+<h2 class="sec-title">Every Adventure Begins with a Little Wonder</h2>
+<div class="story-box">
+<p>A tiny door tucked beneath a tree. A mysterious key shimmering with rainbow colors. A new friend waiting somewhere just beyond the ordinary.</p>
+<p>Open a book and follow your curiosity. There are worlds to explore, friends to meet, and stories to share—one page at a time.</p>
+<p class="highlight">Where will your imagination take you? ✨</p>
+</div>
+</div>
+</div>
+
+<!-- BOOKS -->
+<div class="section" id="books">
+<div class="container">
+<p class="eyebrow">✦ Coming Soon ✦</p>
+<h2 class="sec-title">Meet Lila</h2>
+<p class="sec-sub">A brand new storybook adventure, launching soon!</p>
+<div class="books-wrap">
+
+<div class="book-card">
+<img src="lila-cover.jpeg" alt="Lila and the Rainbow Key book cover" class="book-cover">
+<div class="book-info">
+<span class="book-tag">✨ New Adventure</span>
+<h3 class="book-title">Lila and the Rainbow Key</h3>
+<p class="book-desc">A tiny door. A magical key. A world waiting to be saved. When Lila discovers the Rainbow Key, she steps into an unforgettable adventure filled with magic, friendship, and courage.</p>
+<button class="buy-btn" onclick="openModal('notify-modal')">🔔 Notify Me at Launch</button>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<footer>
+<div class="footer-logo">Mahsa Moon</div>
+<p class="footer-by">Thoughtfully created for parents, educators &amp; gift-givers</p>
+<a href="mailto:mahsamoon.20@yahoo.com" class="footer-email">mahsamoon.20@yahoo.com</a>
+<div class="footer-divider"></div>
+<div class="footer-animals">📖 ✨ 🌟 🦄 🐾</div>
+<p class="footer-copy">© 2026 Mahsa Moon · All Rights Reserved.</p>
+<p class="footer-by" style="margin-top:8px;">As an Amazon Associate, I earn from qualifying purchases.</p>
+</footer>
+
+<!-- NOTIFY ME MODAL -->
+<div class="modal-overlay" id="notify-modal" onclick="if(event.target===this)closeModal('notify-modal')">
+  <div class="modal-box" style="max-width:420px;text-align:center;padding:36px 28px;">
+    <div style="font-size:2.8rem;margin-bottom:10px;">🌟✨</div>
+    <h2 style="font-family:'Baloo 2',cursive;font-weight:800;font-size:1.3rem;background:linear-gradient(135deg,#D06FA0,#9B6FD4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;line-height:1.3;">Be the First to Know!</h2>
+    <p style="font-size:0.85rem;color:#8B6AAA;font-weight:600;line-height:1.7;margin-bottom:20px;">Lila's adventure is on its way! Sign up and we'll let you know the moment the book is out! 🐾🦄</p>
+    <div id="mlb2-41106157" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-41106157">
+      <div class="ml-form-align-center">
+        <div class="ml-form-embedWrapper embedForm">
+          <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+            <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/2331490/forms/187109885981231075/subscribe" data-code="" method="post" target="_blank">
+              <div class="ml-form-formContent">
+                <div class="ml-form-fieldRow">
+                  <div class="ml-field-group ml-field-name">
+                    <input aria-label="name" type="text" class="form-control" name="fields[name]" placeholder="Your name ✨" autocomplete="given-name" style="width:100%;padding:10px;border:1px solid #9b6fd4;border-radius:25px;font-size:14px;margin-bottom:10px;box-sizing:border-box;">
+                  </div>
+                </div>
+                <div class="ml-form-fieldRow ml-last-item">
+                  <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                    <input aria-label="email" aria-required="true" type="email" class="form-control" name="fields[email]" placeholder="Your email 📧" autocomplete="email" style="width:100%;padding:10px;border:1px solid #9b6fd4;border-radius:25px;font-size:14px;margin-bottom:10px;box-sizing:border-box;">
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" name="ml-submit" value="1">
+              <div class="ml-form-embedSubmit">
+                <button type="submit" style="background:linear-gradient(135deg,#D06FA0,#9B6FD4);color:white;font-weight:800;font-size:0.85rem;border:none;border-radius:25px;padding:12px;width:100%;cursor:pointer;">🔔 Notify Me!</button>
+              </div>
+              <input type="hidden" name="anticsrf" value="true">
+            </form>
+          </div>
+          <div class="ml-form-successBody row-success" style="display:none;text-align:center;padding:20px;">
+            <h4 style="font-family:'Baloo 2',cursive;font-weight:800;font-size:1.1rem;color:#9B6FD4;margin-bottom:8px;">You're on the list! 🌟</h4>
+            <p style="font-size:0.85rem;color:#8B6AAA;">We'll let you know the moment Lila's book is out! 🐾✨</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function ml_webform_success_41106157() {
+        var $ = ml_jQuery || jQuery;
+        $('.ml-subscribe-form-41106157 .row-success').show();
+        $('.ml-subscribe-form-41106157 .row-form').hide();
+      }
+    </script>
+    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?vb397d78ebaa8a0f631d35384c46d781b" type="text/javascript"></script>
+    <script>fetch("https://assets.mailerlite.com/jsonp/2331490/forms/187109885981231075/takel")</script>
+    <button onclick="closeModal('notify-modal')" style="margin-top:16px;background:none;border:none;color:#C8A8D8;font-size:0.75rem;cursor:pointer;font-weight:700;">No thanks, maybe later</button>
+  </div>
+</div>
+
+<script>
+function openModal(id) {
+  var el = document.getElementById(id);
+  if (el) { el.style.display = 'flex'; el.classList.add('open'); }
+}
+function closeModal(id) {
+  var el = document.getElementById(id);
+  if (el) { el.style.display = 'none'; el.classList.remove('open'); }
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(function(m) {
+      m.style.display = 'none'; m.classList.remove('open');
+    });
+  }
+});
+
+// BUBBLE CANVAS
+const cvs = document.getElementById('bubble-canvas');
+const ctx = cvs.getContext('2d');
+let bubbles = [];
+function resizeCvs() { cvs.width = window.innerWidth; cvs.height = window.innerHeight; }
+resizeCvs();
+window.addEventListener('resize', resizeCvs);
+function spawnBubbles(x, y, n) {
+for (let i = 0; i < n; i++) {
+bubbles.push({
+x, y,
+r: 4 + Math.random() * 7,
+vx: (Math.random() - 0.5) * 2.2,
+vy: -(1.5 + Math.random() * 2.5),
+alpha: 0.75,
+color: Math.random() > 0.5 ? '#F9A8C9' : '#C9B8F5'
+});
+}
+}
+function animBubbles() {
+ctx.clearRect(0, 0, cvs.width, cvs.height);
+bubbles = bubbles.filter(b => b.alpha > 0.02);
+bubbles.forEach(b => {
+b.x += b.vx; b.y += b.vy; b.alpha *= 0.96;
+ctx.beginPath();
+ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+ctx.strokeStyle = b.color;
+ctx.lineWidth = 1.5;
+ctx.globalAlpha = b.alpha;
+ctx.stroke();
+ctx.globalAlpha = b.alpha * 0.18;
+ctx.fillStyle = b.color;
+ctx.fill();
+ctx.globalAlpha = 1;
+});
+requestAnimationFrame(animBubbles);
+}
+animBubbles();
+document.addEventListener('click', function(e) {
+spawnBubbles(e.clientX, e.clientY, 5);
+});
+</script>
+</body>
+</html>
